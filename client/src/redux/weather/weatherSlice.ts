@@ -1,54 +1,16 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { RootState } from '../configureStore';
+import { CurrentWeatherResponse } from '../../api/weather/openWeatherMap';
 
-interface WeatherItem {
-	coord: {
-		lon: number;
-		lat: number;
-	};
-	weather: [
-		{
-			id: number;
-			main: string;
-			description: string;
-			icon: string;
-		},
-	];
-	base: string;
-	main: {
-		temp: number;
-		feels_like: number;
-		temp_min: number;
-		temp_max: number;
-		pressure: number;
-		humidity: number;
-	};
-	visibility: number;
-	wind: {
-		speed: number;
-		deg: number;
-		gust: number;
-	};
-	clouds: {
-		all: number;
-	};
-	dt: number;
-	sys: {
-		type: number;
-		id: number;
-		country: string;
-		sunrise: number;
-		sunset: number;
-	};
-	timezone: number;
-	id: number;
-	name: string;
-	cod: number;
+const LOCAL_STORAGE_LIMIT = 100;
+
+export interface CurrentWeatherItem extends CurrentWeatherResponse {
+	units: string;
 }
 
 export interface WeatherState {
-	data: WeatherItem[];
+	data: CurrentWeatherItem[];
 }
 
 const initialState: WeatherState = {
@@ -59,13 +21,26 @@ export const weatherSlice = createSlice({
 	name: 'weather',
 	initialState,
 	reducers: {
-		add: (state, action: PayloadAction<WeatherItem>) => {
+		add: (state, action: PayloadAction<CurrentWeatherItem>) => {
+			if (state.data.length === LOCAL_STORAGE_LIMIT) {
+				state.data.shift();
+			}
+
 			state.data.push(action.payload);
 		},
 	},
 });
 
 export const selectData = (state: RootState) => state.weather.data;
+
+export const selectLatestWeather = (state: RootState) => {
+	const data = selectData(state);
+	if (!data.length) {
+		return null;
+	}
+
+	return data[data.length - 1];
+};
 
 // Action creators are generated for each case reducer function
 export const { add } = weatherSlice.actions;
