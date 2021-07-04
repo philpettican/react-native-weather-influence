@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { getCurrentWeatherByCoordinates } from '../../api/weather/openWeatherMap';
 import CurrentWeather from '../../components/weather/currentWeather';
+import CPU from '../../components/cpu';
 import { selectLatestWeather, add } from '../../redux/weather/weatherSlice';
 import { useMountEffect } from '../../hooks';
 import OpenWeatherCurrentData from '../../models/OpenWeatherCurrentData';
@@ -79,6 +80,7 @@ const HomeScreen = () => {
 						onRefresh={getCurrentPositionAndSaveLocally}
 					/>
 				)}
+				<CPU temperature={30} />
 			</ScrollView>
 		</SafeAreaView>
 	);
