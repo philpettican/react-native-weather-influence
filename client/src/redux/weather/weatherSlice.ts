@@ -28,6 +28,9 @@ export const weatherSlice = createSlice({
 
 			state.data.push(action.payload);
 		},
+		removeAll: state => {
+			state.data = [];
+		},
 	},
 });
 
@@ -43,6 +46,6 @@ export const selectLatestWeather = (state: RootState) => {
 };
 
 // Action creators are generated for each case reducer function
-export const { add } = weatherSlice.actions;
+export const { add, removeAll } = weatherSlice.actions;
 
 export default weatherSlice.reducer;
