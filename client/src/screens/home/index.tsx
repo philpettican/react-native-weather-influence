@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import Geolocation from 'react-native-geolocation-service';
-import { Button } from 'react-native-elements';
+import { Button, Header } from 'react-native-elements';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getCurrentWeatherByCoordinates } from '../../api/weather/openWeatherMap';
@@ -69,9 +69,10 @@ const HomeScreen = () => {
 	return (
 		<SafeAreaView style={backgroundStyle}>
 			<StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-			<View style={styles.headerContainerStyle}>
-				<Text style={styles.headerTextStyle}>Weather Influence</Text>
-			</View>
+			<Header
+				centerComponent={<Text style={styles.headerTextStyle}>Weather Influence</Text>}
+				containerStyle={styles.headerContainerStyle}
+			/>
 			<ScrollView
 				contentInsetAdjustmentBehavior="automatic"
 				style={backgroundStyle}
@@ -115,12 +116,11 @@ const styles = StyleSheet.create({
 		borderBottomWidth: 1,
 		borderBottomColor: 'black',
 		marginBottom: 5,
+		backgroundColor: 'white',
 	},
 	headerTextStyle: {
 		fontSize: 24,
 		textAlign: 'center',
-		borderBottomWidth: 10,
-		borderBottomColor: 'black',
 	},
 	contentContainerStyle: {
 		flex: 1,
