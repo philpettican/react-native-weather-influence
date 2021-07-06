@@ -59,7 +59,7 @@ const CurrentWeather = (props: WeatherProps) => {
 					type="material"
 					name="refresh"
 					color="white"
-					style={styles.refreshIconStyle}
+					containerStyle={styles.refreshIconStyle}
 					onPress={onRefresh}
 				/>
 			)}
