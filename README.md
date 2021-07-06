@@ -4,6 +4,12 @@
 
 Follow the [React Native](https://reactnative.dev/docs/environment-setup) development environment setup.
 
+- Install Yarn using Homebrew
+
+```
+$ brew install yarn
+```
+
 ## Install Client Dependencies
 
 ```
