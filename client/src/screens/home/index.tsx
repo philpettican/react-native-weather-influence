@@ -70,8 +70,20 @@ const HomeScreen = () => {
 		<SafeAreaView style={backgroundStyle}>
 			<StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
 			<Header
-				centerComponent={<Text style={styles.headerTextStyle}>Weather Influence</Text>}
-				containerStyle={styles.headerContainerStyle}
+				centerComponent={
+					<Text
+						style={StyleSheet.flatten([
+							styles.headerTextStyle,
+							isDarkMode && styles.darkHeaderTextStyle,
+						])}
+					>
+						Weather Influence
+					</Text>
+				}
+				containerStyle={StyleSheet.flatten([
+					styles.headerContainerStyle,
+					isDarkMode && styles.darkHeaderContainerStyle,
+				])}
 			/>
 			<ScrollView
 				contentInsetAdjustmentBehavior="automatic"
@@ -94,7 +106,7 @@ const HomeScreen = () => {
 				<CPU temperature={30} />
 				<CPU temperature={50} />
 				<CPU temperature={70} />
-				<View style={styles.row}>
+				<View style={styles.footerContainerStyle}>
 					<Button
 						title="Refresh"
 						onPress={() => getCurrentPositionAndWeather()}
@@ -114,13 +126,21 @@ const HomeScreen = () => {
 const styles = StyleSheet.create({
 	headerContainerStyle: {
 		borderBottomWidth: 1,
-		borderBottomColor: 'black',
+		borderBottomColor: Colors.darker,
 		marginBottom: 5,
-		backgroundColor: 'white',
+		backgroundColor: Colors.lighter,
+	},
+	darkHeaderContainerStyle: {
+		backgroundColor: Colors.darker,
+		borderBottomColor: Colors.lighter,
 	},
 	headerTextStyle: {
 		fontSize: 24,
 		textAlign: 'center',
+		color: Colors.darker,
+	},
+	darkHeaderTextStyle: {
+		color: Colors.lighter,
 	},
 	contentContainerStyle: {
 		flex: 1,
@@ -130,6 +150,10 @@ const styles = StyleSheet.create({
 	},
 	actionButtonContainerStyle: {
 		flex: 1,
+		padding: 5,
+	},
+	footerContainerStyle: {
+		flexDirection: 'row',
 		padding: 5,
 	},
 });
